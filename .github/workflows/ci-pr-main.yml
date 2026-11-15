@@ -5,8 +5,9 @@ on:
     branches: [ main ]
 
 env:
+  RUST_VERSION: "1.100.0"
   CARGO_TERM_COLOR: always
-  RUST_BACKTRACE: 1
+  RUST_BACKTRACE: 1env
 
 jobs:
   fmt:
@@ -16,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          components: rustfmt
 
       - name: Format
         run: cargo fmt --all -- --check
