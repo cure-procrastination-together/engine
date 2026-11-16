@@ -3,11 +3,11 @@
 version = 4
 
 [[package]]
-name = "engine-core"
+name = "ecore"
 version = "0.1.0"
 
 [[package]]
-name = "engine-platform"
+name = "eplatform"
 version = "0.1.0"
 
 [[package]]

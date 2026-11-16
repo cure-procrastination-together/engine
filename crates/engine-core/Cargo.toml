@@ -1,5 +1,5 @@
 [package]
-name = "engine-core"
+name = "ecore"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
