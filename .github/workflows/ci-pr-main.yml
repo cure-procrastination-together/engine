@@ -7,7 +7,7 @@ on:
 env:
   RUST_VERSION: "1.100.0"
   CARGO_TERM_COLOR: always
-  RUST_BACKTRACE: 1env
+  RUST_BACKTRACE: 1
 
 jobs:
   fmt:
