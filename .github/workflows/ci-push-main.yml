@@ -7,50 +7,11 @@ on:
 permissions:
   contents: read
 
-env:
-  RUST_VERSION: "1.100.0"
-  CARGO_TERM_COLOR: always
-  RUST_BACKTRACE: 1
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  fmt:
-    name: fmt
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ env.RUST_VERSION }}
-          components: rustfmt
-
-      - name: Format
-        run: cargo fmt --all -- --check
-
-  check:
-    name: check
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 10
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v4
-      
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ env.RUST_VERSION }}
-          components: clippy
-      
-      - uses: Swatinem/rust-cache@v2
-      - uses: taiki-e/install-action@nextest
-
-      - name: Clippy
-        run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
-
-      - name: Tests
-        run: cargo nextest run --workspace --all-features --locked
-
-      - name: Doctests
-        run: cargo test --workspace --doc --all-features --locked
+  ci:
+    name: ci
+    uses: ./.github/workflows/ci.yml

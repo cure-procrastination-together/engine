@@ -1,1 +1,1 @@
-
+//! Platform layer - OS dependent
